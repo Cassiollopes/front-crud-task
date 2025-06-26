@@ -44,7 +44,7 @@ export default function CompleteTaskButton({
   const removeComplete = async () => {
     setIsCompleted(false);
     try {
-      const response = await fetch(`$${process.env.NEXT_PUBLIC_API_URL}/tasks/${taskId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks/${taskId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
