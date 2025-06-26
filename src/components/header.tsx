@@ -13,8 +13,8 @@ export default function Header({ user }: { user?: User }) {
   const router = useRouter();
 
   return (
-    <div className="flex flex-col items-center justify-center w-full gap-8 mt-[25%] mb-6">
-      <div className="flex flex-col items-center relative group">
+    <div className="flex flex-col items-center justify-center w-full gap-8 max-lg:pt-[20%] pt-[25%] mb-6 max-lg:relative">
+      <div className="flex flex-col items-center lg:relative group gap-2">
         <div
           className="h-[50px] bg-secondary aspect-square ring-2 ring-blue-300 text-blue-300 rounded-full flex items-center justify-center transition-all duration-300 ease-in overflow-hidden animate-scale-down"
           style={{ transform: "scale(1.20)" }}
@@ -41,12 +41,12 @@ export default function Header({ user }: { user?: User }) {
           Olá, {user?.name?.split(" ").slice(0, 2).join(" ") || "Usuário"}!
         </h1>
         {user && (
-          <div className="absolute bottom-0 top-full invisible group-hover:visible w-full h-fit flex justify-center items-center">
+          <div className="absolute bottom-0 max-lg:top-0 top-full lg:invisible group-hover:visible w-full h-fit flex justify-center max-lg:justify-start items-center">
             <Button
-              variant={"outline"}
+              variant={"ghost"}
               size={"default"}
               onClick={() => signOut()}
-              className="transition-all ease-in opacity-0 group-hover:opacity-100"
+              className="transition-all ease-in lg:opacity-0 group-hover:opacity-100"
             >
               <LogOut size={24} />
               Sair
@@ -54,7 +54,7 @@ export default function Header({ user }: { user?: User }) {
           </div>
         )}
       </div>
-      <div className="flex items-center justify-between w-full px-6">
+      <div className="flex items-center justify-between w-full px-6 max-md:px-2">
         <h2
           className="text-2xl font-semibold animate-fade-in opacity-0"
           style={{ animationDelay: "800ms" }}
