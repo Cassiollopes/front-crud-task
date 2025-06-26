@@ -22,4 +22,6 @@ export default function ErrorCallback() {
         callbackUrl="/login"
       />
     );
+  
+  return null;
 }
