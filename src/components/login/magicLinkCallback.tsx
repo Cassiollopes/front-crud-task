@@ -1,19 +1,20 @@
 "use client";
 import { useEffect, useState } from "react";
 import { signIn } from "next-auth/react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import LoadingAnimation from "../ui/loadingAnimation";
 
-export default function MagicLinkCallback() {
+export default function MagicLinkCallback({
+  token,
+}: {
+  token?: string;
+}) {
   const [status, setStatus] = useState<"loading" | "success" | "error">(
     "loading"
   );
-  const searchParams = useSearchParams();
   const router = useRouter();
 
   useEffect(() => {
-    const token = searchParams.get("token");
-
     if (!token) {
       setStatus("error");
       return;
@@ -39,7 +40,7 @@ export default function MagicLinkCallback() {
     };
 
     handleSignIn();
-  }, [searchParams, router]);
+  }, [token, router]);
 
   if (status === "error") {
     return (

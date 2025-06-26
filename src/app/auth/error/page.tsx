@@ -1,13 +1,21 @@
-import ErrorCallback from "@/components/login/errorCallback";
-import LoadingAnimation from "@/components/ui/loadingAnimation";
-import { Suspense } from "react";
+import ErrorTemplate from "@/components/ui/errorTemplate";
+import { redirect } from "next/navigation";
 
-export default function ErrorPage() {
+export default function ErrorPage({ searchParams }: { searchParams?: { error?: string } }) {
+  const error = searchParams?.error;
+
+  if (!error) {
+    redirect("/login");
+  }
+
   return (
     <div className="w-full mx-auto min-h-screen flex justify-center items-center">
-      <Suspense fallback={<LoadingAnimation condition={true} />}>
-        <ErrorCallback />
-      </Suspense>
+      <ErrorTemplate
+        error={error}
+        description="Ocorreu um erro ao tentar fazer login."
+        ButtonLabel="Tentar novamente"
+        callbackUrl="/login"
+      />
     </div>
   );
 }
