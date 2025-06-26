@@ -9,7 +9,7 @@ export default async function LoginPage() {
   if (session) redirect("/");
 
   return (
-    <div className="w-full mx-auto min-h-screen flex justify-center items-center">
+    <div className="w-full mx-auto min-h-screen flex justify-center items-center p-4">
         <LoginForm />
     </div>
   );
