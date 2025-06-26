@@ -1,9 +1,8 @@
-import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       id: "magic-link",
@@ -115,5 +114,3 @@ const authOptions: NextAuthOptions = {
     signIn: "/login",
   },
 };
-
-export default NextAuth(authOptions);
