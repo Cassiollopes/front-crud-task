@@ -1,14 +1,18 @@
 import MagicLinkCallback from "@/components/login/magicLinkCallback";
 import { redirect } from "next/navigation";
 
-export default function MagicLinkCallbackPage({ searchParams }: { searchParams?: { token?: string } }) {
-  if (!searchParams?.token) {
-    redirect("/login");
-  }
+export default async function MagicLinkCallbackPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ token?: string }>;
+}) {
+  const { token } = await searchParams;
+
+  if (!token) redirect("/login");
 
   return (
     <div className="w-full mx-auto min-h-screen flex justify-center items-center">
-      <MagicLinkCallback token={searchParams?.token} />
+      <MagicLinkCallback token={token} />
     </div>
   );
 }

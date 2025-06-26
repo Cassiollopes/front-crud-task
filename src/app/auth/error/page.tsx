@@ -1,12 +1,10 @@
 import ErrorTemplate from "@/components/ui/errorTemplate";
 import { redirect } from "next/navigation";
 
-export default function ErrorPage({ searchParams }: { searchParams?: { error?: string } }) {
-  const error = searchParams?.error;
+export default async function ErrorPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
+  const { error } = await searchParams;
 
-  if (!error) {
-    redirect("/login");
-  }
+  if (!error) redirect("/login");
 
   return (
     <div className="w-full mx-auto min-h-screen flex justify-center items-center">
