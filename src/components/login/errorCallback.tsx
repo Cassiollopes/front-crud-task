@@ -1,17 +1,11 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
 import ErrorTemplate from "../ui/errorTemplate";
 
 export default function ErrorCallback() {
   const searchParams = useSearchParams();
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const error = searchParams.get("error");
-    setError(error);
-  }, [searchParams]);
+  const error = searchParams.get("error");
 
   if (error)
     return (
