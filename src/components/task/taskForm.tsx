@@ -185,6 +185,7 @@ export default function TaskForm({ setShowForm, user, task }: TaskFormProps) {
               size: "icon",
             })}`}
           >
+            {showPriorityOptions && <div className="fixed inset-0" onClick={() => setShowPriorityOptions(false)} />}
             <div onClick={() => setShowPriorityOptions(!showPriorityOptions)} className="xl:pointer-events-none h-full w-full flex items-center justify-center">
               <div
                 className={`h-2 aspect-square rounded-full ${
