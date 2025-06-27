@@ -68,7 +68,7 @@ export default function TaskList({ user }: { user?: User }) {
   }, [user]);
 
   return (
-    <div className="w-full flex flex-col justify-center items-center pb-18">
+    <div className="w-full flex flex-col justify-center items-center">
       <LoadingAnimation condition={loading && tasks.length === 0} />
       <div
         className={`grid grid-cols-3 max-md:grid-cols-1 gap-4 w-full ${

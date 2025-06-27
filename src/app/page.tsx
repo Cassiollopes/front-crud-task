@@ -13,8 +13,8 @@ export default async function Home() {
   };
 
   return (
-    <div className="w-full mx-auto min-h-screen flex justify-center overflow-y-scroll h-screen">
-      <div className="max-w-[800px] w-full p-2">
+    <div className="w-full mx-auto min-h-screen flex justify-center overflow-y-scroll h-screen p-2 pb-18">
+      <div className="max-w-[800px] w-full">
         <Header user={session?.user ? user : undefined} />
         <TaskList user={session?.user ? user : undefined} />
       </div>
