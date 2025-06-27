@@ -23,6 +23,8 @@ interface TaskFormProps {
 export default function TaskForm({ setShowForm, user, task }: TaskFormProps) {
   const isEditMode = !!task;
 
+  const [showPriorityOptions, setShowPriorityOptions] = useState(false);
+
   const [image, setImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(
     task?.imageUrl || null
@@ -183,17 +185,27 @@ export default function TaskForm({ setShowForm, user, task }: TaskFormProps) {
               size: "icon",
             })}`}
           >
+            <div onClick={() => setShowPriorityOptions(!showPriorityOptions)} className="xl:pointer-events-none h-full w-full flex items-center justify-center">
+              <div
+                className={`h-2 aspect-square rounded-full ${
+                  priority === "LOW"
+                    ? "bg-green-500"
+                    : priority === "MEDIUM"
+                    ? "bg-yellow-500"
+                    : "bg-red-500"
+                }`}
+              />
+            </div>
             <div
-              className={`h-2 aspect-square rounded-full ${
-                priority === "LOW"
-                  ? "bg-green-500"
-                  : priority === "MEDIUM"
-                  ? "bg-yellow-500"
-                  : "bg-red-500"
+              className={`absolute invisible group-hover:visible left-full bottom-1/5 pl-1.5 z-50 ${
+                showPriorityOptions ? "visible" : ""
               }`}
-            />
-            <div className="absolute invisible group-hover:visible left-full bottom-1/5 pl-1.5 z-50">
-              <div className="left-full flex flex-col bg-background border rounded-xl p-1 opacity-0 group-hover:opacity-100 transition-opacity shadow-md">
+            >
+              <div
+                className={`left-full flex flex-col bg-background border rounded-xl p-1 opacity-0 group-hover:opacity-100 transition-opacity shadow-md ${
+                  showPriorityOptions ? "opacity-100" : ""
+                }`}
+              >
                 <div className="p-3 pt-2 text-md">Prioridade</div>
                 <div className="flex gap-1">
                   {priorityOptions.map((option) => (
@@ -201,10 +213,15 @@ export default function TaskForm({ setShowForm, user, task }: TaskFormProps) {
                       key={option.value}
                       variant="ghost"
                       size="sm"
-                      className="rounded-full"
-                      onClick={() =>
-                        setPriority(option.value as "LOW" | "MEDIUM" | "HIGH")
-                      }
+                      className={`rounded-full ${
+                        priority === option.value
+                          ? "bg-input/50"
+                          : "bg-transparent"
+                      }`}
+                      onClick={() => {
+                        setPriority(option.value as "LOW" | "MEDIUM" | "HIGH");
+                        setShowPriorityOptions(false);
+                      }}
                       type="button"
                     >
                       {option.label}

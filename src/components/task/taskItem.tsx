@@ -13,6 +13,7 @@ import TaskForm from "./taskForm";
 export default function TaskItem({ task, user }: { task: Task; user: User }) {
   const [excludePopup, setExcludePopup] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
+  const [showOptions, setShowOptions] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleExclude = async () => {
@@ -99,16 +100,17 @@ export default function TaskItem({ task, user }: { task: Task; user: User }) {
               : "Alta"}
           </span>
           <div className="relative group cursor-pointer z-40">
-            <div>
+            <div onClick={() => setShowOptions(!showOptions)} className="xl:pointer-events-none">
               <Ellipsis size={18} />
             </div>
-            <div className="absolute invisible group-hover:visible right-full -top-3 pr-1.5">
-              <div className="flex flex-col bg-background border rounded-xl p-2 opacity-0 group-hover:opacity-100 transition-all shadow-md gap-1">
-                <Button variant={"ghost"} onClick={() => setShowEditForm(true)}>
+            {showOptions && <div className="fixed inset-0" onClick={() => setShowOptions(false)}></div>}
+            <div className={`absolute invisible group-hover:visible right-full -top-3 pr-1.5 ${showOptions ? "visible" : ""}`}>
+              <div className={`flex flex-col bg-background border rounded-xl p-2 opacity-0 group-hover:opacity-100 transition-all shadow-md gap-1 ${showOptions ? "opacity-100" : ""}`}>
+                <Button variant={"ghost"} onClick={() => {setShowEditForm(true); setShowOptions(false);}}>
                   <Edit size={16} />
                   Editar
                 </Button>
-                <Button variant={"ghost"} onClick={() => setExcludePopup(true)}>
+                <Button variant={"ghost"} onClick={() => {setExcludePopup(true); setShowOptions(false);}}>
                   <Trash size={16} />
                   Excluir
                 </Button>
