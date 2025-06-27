@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="pt-BR" suppressHydrationWarning>
       <body
         className={`${inter.variable} ${comfortaa.variable} antialiased bg-primary-foreground max-lg:select-none`}
         suppressHydrationWarning={true}
