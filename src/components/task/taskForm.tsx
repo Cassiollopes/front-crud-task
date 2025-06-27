@@ -198,12 +198,12 @@ export default function TaskForm({ setShowForm, user, task }: TaskFormProps) {
               />
             </div>
             <div
-              className={`absolute invisible group-hover:visible left-full bottom-1/5 pl-1.5 z-50 ${
+              className={`absolute invisible xl:group-hover:visible left-full bottom-1/5 pl-1.5 z-50 ${
                 showPriorityOptions ? "visible" : ""
               }`}
             >
               <div
-                className={`left-full flex flex-col bg-background border rounded-xl p-1 opacity-0 group-hover:opacity-100 transition-opacity shadow-md ${
+                className={`left-full flex flex-col bg-background border rounded-xl p-1 opacity-0 xl:group-hover:opacity-100 transition-opacity shadow-md ${
                   showPriorityOptions ? "opacity-100" : ""
                 }`}
               >
