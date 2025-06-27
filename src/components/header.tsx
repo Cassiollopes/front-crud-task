@@ -13,7 +13,7 @@ export default function Header({ user }: { user?: User }) {
   const router = useRouter();
 
   return (
-    <div className="flex flex-col items-center justify-center w-full gap-8 max-lg:pt-[20%] pt-[25%] mb-6 max-lg:relative">
+    <div className="flex flex-col items-center justify-center w-full gap-8 max-lg:pt-[20%] pt-[25%] mb-6 max-lg:relative max-md:px-1">
       <div className="flex flex-col items-center lg:relative group gap-2">
         <div
           className="h-[50px] bg-secondary aspect-square ring-2 ring-blue-300 text-blue-300 rounded-full flex items-center justify-center transition-all duration-300 ease-in overflow-hidden animate-scale-down"
@@ -37,7 +37,7 @@ export default function Header({ user }: { user?: User }) {
             <UserRound size={30} />
           )}
         </div>
-        <h1 className="text-[40px] font-medium transition-all duration-500 ease-in animate-fade-in opacity-0 max-md:px-1">
+        <h1 className="text-[40px] font-medium transition-all duration-500 ease-in animate-fade-in opacity-0">
           Olá, {user?.name?.split(" ").slice(0, 2).join(" ") || "Usuário"}!
         </h1>
         {user && (
@@ -54,7 +54,7 @@ export default function Header({ user }: { user?: User }) {
           </div>
         )}
       </div>
-      <div className="flex items-center justify-between w-full px-6 max-md:px-1">
+      <div className="flex items-center justify-between w-full md:px-6">
         <h2
           className="text-2xl font-semibold animate-fade-in opacity-0"
           style={{ animationDelay: "800ms" }}

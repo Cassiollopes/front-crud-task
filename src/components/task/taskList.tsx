@@ -68,8 +68,8 @@ export default function TaskList({ user }: { user?: User }) {
   }, [user]);
 
   return (
-    <div className="w-full flex flex-col justify-center items-center">
-      <LoadingAnimation condition={loading && tasks.length === 0} />
+    <div className="w-full flex flex-col justify-center items-center relative">
+      <LoadingAnimation top condition={loading && tasks.length === 0} />
       <div
         className={`grid grid-cols-3 max-md:grid-cols-1 gap-4 w-full ${
           loading ? "" : "animate-fade-in"
