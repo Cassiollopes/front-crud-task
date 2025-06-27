@@ -11,7 +11,7 @@ export default async function MagicLinkCallbackPage({
   if (!token) redirect("/login");
 
   return (
-    <div className="w-full mx-auto min-h-screen flex justify-center items-center">
+    <div className="w-full min-h-screen flex justify-center items-center">
       <MagicLinkCallback token={token} />
     </div>
   );

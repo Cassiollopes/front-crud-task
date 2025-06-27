@@ -7,7 +7,7 @@ export default async function ErrorPage({ searchParams }: { searchParams: Promis
   if (!error) redirect("/login");
 
   return (
-    <div className="w-full mx-auto min-h-screen flex justify-center items-center">
+    <div className="w-full min-h-screen flex justify-center items-center">
       <ErrorTemplate
         error={error}
         description="Ocorreu um erro ao tentar fazer login."
