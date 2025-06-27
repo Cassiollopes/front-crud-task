@@ -2,11 +2,11 @@
 
 import { ImageUp, X } from "lucide-react";
 import { Button, buttonVariants } from "../ui/button";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import LoadingAnimation from "../ui/loadingAnimation";
 import { Task } from "@/types";
 import { User } from "next-auth";
+import ButtonLoading from "../ui/buttonLoading";
 
 const priorityOptions = [
   { label: "Baixa", value: "LOW" },
@@ -37,6 +37,10 @@ export default function TaskForm({ setShowForm, user, task }: TaskFormProps) {
   const [loading, setLoading] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    console.log(task);
+  }, [task]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -98,10 +102,10 @@ export default function TaskForm({ setShowForm, user, task }: TaskFormProps) {
   };
 
   const hasChanges = isEditMode
-    ? title !== task.title ||
+    ? title !== "" && (title !== task.title ||
       description !== task.description ||
       priority !== task.priority ||
-      imageUrl !== task.imageUrl
+      imageUrl !== task.imageUrl)
     : !!title;
 
   return (
@@ -113,7 +117,6 @@ export default function TaskForm({ setShowForm, user, task }: TaskFormProps) {
         }
       }}
     >
-      <LoadingAnimation condition={loading} />
       <form
         className="bg-background p-8 border rounded-3xl flex flex-col gap-4 w-[400px]"
         onSubmit={handleSubmit}
@@ -237,7 +240,11 @@ export default function TaskForm({ setShowForm, user, task }: TaskFormProps) {
             className="ml-auto rounded-full bg-blue-600 hover:bg-blue-700"
             disabled={!hasChanges}
           >
-            {isEditMode ? "Salvar" : "Criar Tarefa"}
+            {loading ? (
+              <ButtonLoading />
+            ) : (
+              "Salvar"
+            )}
           </Button>
         </div>
       </form>

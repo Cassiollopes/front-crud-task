@@ -1,23 +1,23 @@
 import { Circle, CircleCheck } from "lucide-react";
 import { User } from "next-auth";
-import { useState } from "react";
 
 export default function CompleteTaskButton({
   taskId,
-  completed,
-  user
+  user,
+  isCompleted = false,
+  setIsCompleted,
 }: {
   taskId: string;
-  completed: boolean;
   user: User;
+  isCompleted: boolean;
+  setIsCompleted: (completed: boolean) => void;
 }) {
-  const [isCompleted, setIsCompleted] = useState(completed);
 
   const handleComplete = async () => {
     setIsCompleted(true);
 
     try {
-      const response = await fetch(
+      const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/tasks/${taskId}`,
         {
           method: "PUT",
@@ -30,11 +30,12 @@ export default function CompleteTaskButton({
           }),
         }
       );
-      if (response.ok) {
-        window.dispatchEvent(new Event("taskUpdated"));
-      } else {
+
+      if (!res.ok) {
         setIsCompleted(false);
       }
+
+      return window.dispatchEvent(new Event("taskUpdated"));
     } catch (error) {
       console.error("Error completing task:", error);
       setIsCompleted(false);
@@ -43,22 +44,27 @@ export default function CompleteTaskButton({
 
   const removeComplete = async () => {
     setIsCompleted(false);
+
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks/${taskId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${user.accessToken}`,
-        },
-        body: JSON.stringify({
-          completed: false,
-        }),
-      });
-      if (response.ok) {
-        window.dispatchEvent(new Event("taskUpdated"));
-      } else {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/tasks/${taskId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.accessToken}`,
+          },
+          body: JSON.stringify({
+            completed: false,
+          }),
+        }
+      );
+
+      if(!res.ok) {
         setIsCompleted(true);
       }
+
+      return window.dispatchEvent(new Event("taskUpdated"));
     } catch (error) {
       console.error("Error completing task:", error);
       setIsCompleted(true);
@@ -66,7 +72,10 @@ export default function CompleteTaskButton({
   };
 
   return (
-    <button onClick={isCompleted ? removeComplete : handleComplete} className="cursor-pointer hover:scale-105 z-30 min-h-[24px]">
+    <button
+      onClick={isCompleted ? removeComplete : handleComplete}
+      className="cursor-pointer hover:scale-105 z-30 min-h-[24px]"
+    >
       {isCompleted ? <CircleCheck /> : <Circle size={18} />}
     </button>
   );

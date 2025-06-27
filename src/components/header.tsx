@@ -37,7 +37,7 @@ export default function Header({ user }: { user?: User }) {
             <UserRound size={30} />
           )}
         </div>
-        <h1 className="text-[40px] font-medium transition-all duration-500 ease-in animate-fade-in opacity-0">
+        <h1 className="text-[40px] font-medium transition-all duration-500 ease-in animate-fade-in opacity-0 max-md:px-1">
           Olá, {user?.name?.split(" ").slice(0, 2).join(" ") || "Usuário"}!
         </h1>
         {user && (
@@ -54,7 +54,7 @@ export default function Header({ user }: { user?: User }) {
           </div>
         )}
       </div>
-      <div className="flex items-center justify-between w-full px-6 max-md:px-2">
+      <div className="flex items-center justify-between w-full px-6 max-md:px-1">
         <h2
           className="text-2xl font-semibold animate-fade-in opacity-0"
           style={{ animationDelay: "800ms" }}
@@ -71,11 +71,11 @@ export default function Header({ user }: { user?: User }) {
               setShowForm(true);
             }
           }}
-          className="rounded-full animate-scale-up opacity-0"
+          className="md:rounded-full animate-scale-up opacity-0"
           style={{ transform: "scale(0)" }}
         >
           <Plus size={24} />
-          Criar tarefa
+          <span className="max-md:hidden">Nova tarefa</span>
         </Button>
         {showForm && (
           <TaskForm setShowForm={() => setShowForm(false)} user={user!} />

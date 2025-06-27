@@ -5,6 +5,7 @@ import { AlertCircle, Mailbox } from "lucide-react";
 import { Button } from "../ui/button";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import ButtonLoading from "../ui/buttonLoading";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -150,9 +151,7 @@ export default function LoginForm() {
         className="w-full h-[44px] font-bold text-base mt-2"
       >
         {isLoading ? (
-          <>
-            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-          </>
+          <ButtonLoading />
         ) : (
           <p>Continuar com Email</p>
         )}

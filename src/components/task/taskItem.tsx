@@ -6,15 +6,17 @@ import CompleteTaskButton  from "./completeTaskButton";
 import { Button } from "../ui/button";
 import { Edit, Ellipsis, Trash } from "lucide-react";
 import { useState } from "react";
-import LoadingAnimation from "../ui/loadingAnimation";
 import { User } from "next-auth";
 import TaskForm from "./taskForm";
+import ButtonLoading from "../ui/buttonLoading";
 
 export default function TaskItem({ task, user }: { task: Task; user: User }) {
   const [excludePopup, setExcludePopup] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const [isCompleted, setIsCompleted] = useState(task.completed);
 
   const handleExclude = async () => {
     setLoading(true);
@@ -35,13 +37,14 @@ export default function TaskItem({ task, user }: { task: Task; user: User }) {
     } catch (error) {
       console.error("Error excluding task:", error);
     } finally {
+      setExcludePopup(false);
       setLoading(false);
     }
   };
 
   return (
     <div className="border rounded-2xl p-4 py-3 flex flex-col relative h-fit bg-card overflow-hidden">
-      {task.completed && (
+      {isCompleted && (
         <div className="absolute h-full w-full bg-black/5 opacity-90 top-0 left-0 z-30"></div>
       )}
       {showEditForm && (
@@ -56,7 +59,6 @@ export default function TaskItem({ task, user }: { task: Task; user: User }) {
             }
           }}
         >
-          <LoadingAnimation condition={loading} />
           <div className="bg-background p-6 border rounded-3xl flex flex-col gap-4 w-[400px]">
             <h2 className="font-semibold text-xl">Excluir Tarefa</h2>
             <p>
@@ -72,7 +74,7 @@ export default function TaskItem({ task, user }: { task: Task; user: User }) {
                 Cancelar
               </Button>
               <Button variant={"destructive"} onClick={handleExclude}>
-                Excluir
+                {loading ? <ButtonLoading /> : "Excluir"}
               </Button>
             </div>
           </div>
@@ -100,17 +102,45 @@ export default function TaskItem({ task, user }: { task: Task; user: User }) {
               : "Alta"}
           </span>
           <div className="relative group cursor-pointer z-40">
-            <div onClick={() => setShowOptions(!showOptions)} className="xl:pointer-events-none">
+            <div
+              onClick={() => setShowOptions(!showOptions)}
+              className="xl:pointer-events-none"
+            >
               <Ellipsis size={18} />
             </div>
-            {showOptions && <div className="fixed inset-0" onClick={() => setShowOptions(false)}></div>}
-            <div className={`absolute invisible group-hover:visible right-full -top-3 pr-1.5 ${showOptions ? "visible" : ""}`}>
-              <div className={`flex flex-col bg-background border rounded-xl p-2 opacity-0 group-hover:opacity-100 transition-all shadow-md gap-1 ${showOptions ? "opacity-100" : ""}`}>
-                <Button variant={"ghost"} onClick={() => {setShowEditForm(true); setShowOptions(false);}}>
+            {showOptions && (
+              <div
+                className="fixed inset-0"
+                onClick={() => setShowOptions(false)}
+              ></div>
+            )}
+            <div
+              className={`absolute invisible xl:group-hover:visible right-full -top-3 pr-1.5 ${
+                showOptions ? "visible" : ""
+              }`}
+            >
+              <div
+                className={`flex flex-col bg-background border rounded-xl p-2 opacity-0 xl:group-hover:opacity-100 transition-all shadow-md gap-1 ${
+                  showOptions ? "opacity-100" : ""
+                }`}
+              >
+                <Button
+                  variant={"ghost"}
+                  onClick={() => {
+                    setShowEditForm(true);
+                    setShowOptions(false);
+                  }}
+                >
                   <Edit size={16} />
                   Editar
                 </Button>
-                <Button variant={"ghost"} onClick={() => {setExcludePopup(true); setShowOptions(false);}}>
+                <Button
+                  variant={"ghost"}
+                  onClick={() => {
+                    setExcludePopup(true);
+                    setShowOptions(false);
+                  }}
+                >
                   <Trash size={16} />
                   Excluir
                 </Button>
@@ -139,9 +169,10 @@ export default function TaskItem({ task, user }: { task: Task; user: User }) {
           Criado em: {new Date(task.createdAt).toLocaleDateString()}
         </time>
         <CompleteTaskButton
+          setIsCompleted={setIsCompleted}
           user={user}
           taskId={task.id}
-          completed={task.completed}
+          isCompleted={isCompleted}
         />
       </div>
     </div>
