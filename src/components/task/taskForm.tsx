@@ -147,7 +147,7 @@ export default function TaskForm({ setShowForm, user, task }: TaskFormProps) {
               className="w-full max-h-[200px] h-fit object-contain rounded-2xl overflow-hidden border"
             />
             <div
-              className="absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer rounded-full bg-white/80 p-1.5"
+              className="absolute top-2 right-2 z-10 max-lg:opacity-100 xl:opacity-0 xl:group-hover:opacity-100 transition-opacity cursor-pointer rounded-full bg-white/80 p-1.5"
               onClick={() => {
                 setImage(null);
                 setImageUrl(null);
