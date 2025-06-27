@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${comfortaa.variable} antialiased bg-primary-foreground max-lg:select-none`}
+        className={`${inter.variable} ${comfortaa.variable} antialiased bg-primary-foreground max-lg:select-none scroll-smooth`}
         suppressHydrationWarning={true}
       >
         <Providers>{children}</Providers>
