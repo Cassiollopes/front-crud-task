@@ -81,7 +81,7 @@ export default function TaskList({ user }: { user?: User }) {
       </div>
       {tasks.length === 0 && !loading && (
         <p
-          className="text-gray-500 animate-fade-in opacity-0 text-sm"
+          className="text-gray-500 animate-fade-in opacity-0 text-sm max-md:text-xs"
           style={{ animationDelay: `${!user ? 800 : 0}ms` }}
         >
           Nenhuma tarefa criada.{" "}
