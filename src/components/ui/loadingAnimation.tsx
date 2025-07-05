@@ -7,11 +7,11 @@ export default function LoadingAnimation({
 }) {
   return (
     <div
-      className="animate-fade-in opacity-0 z-50"
+      className="animate-fade-in opacity-0 z-[46]"
       style={{ animationDelay: "0ms", animationDuration: "150ms" }}
     >
       <div
-        className={`absolute top-0 left-0 right-0 ${!top ? "bottom-0" : ""} flex items-center justify-center z-50 ${
+        className={`absolute top-0 left-0 right-0 ${!top ? "bottom-0" : ""} flex items-center justify-center ${
           condition ? "opacity-100" : "opacity-0 invisible"
         } transition-all ease-linear`}
       >
