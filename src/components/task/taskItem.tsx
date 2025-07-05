@@ -43,9 +43,9 @@ export default function TaskItem({ task, user }: { task: Task; user: User }) {
   };
 
   return (
-    <div className="border rounded-2xl p-4 py-3 flex flex-col relative h-fit bg-card overflow-hidden">
+    <div className="border rounded-2xl p-4 py-3 flex flex-col relative h-fit bg-card">
       {isCompleted && (
-        <div className="absolute h-full w-full bg-black/5 opacity-90 top-0 left-0 z-30"></div>
+        <div className="absolute h-full w-full rounded-2xl bg-black/5 opacity-90 top-0 left-0 z-30"></div>
       )}
       {showEditForm && (
         <TaskForm setShowForm={setShowEditForm} task={task} user={user} />
@@ -101,26 +101,26 @@ export default function TaskItem({ task, user }: { task: Task; user: User }) {
               ? "Média"
               : "Alta"}
           </span>
-          <div className="relative group cursor-pointer z-40">
+          <div className="relative group cursor-pointer">
             <div
               onClick={() => setShowOptions(!showOptions)}
-              className="xl:pointer-events-none"
+              className="xl:pointer-events-none z-30 relative"
             >
               <Ellipsis size={18} />
             </div>
             {showOptions && (
               <div
-                className="fixed inset-0"
+                className="fixed inset-0 z-[35]"
                 onClick={() => setShowOptions(false)}
               ></div>
             )}
             <div
-              className={`absolute invisible xl:group-hover:visible right-full -top-3 pr-1.5 ${
+              className={`absolute invisible xl:group-hover:visible right-full -top-3 pr-1.5 z-40 ${
                 showOptions ? "visible" : ""
               }`}
             >
               <div
-                className={`flex flex-col bg-background border rounded-xl p-2 opacity-0 xl:group-hover:opacity-100 transition-all shadow-md gap-1 ${
+                className={`flex flex-col bg-background border rounded-xl p-2 opacity-0 xl:group-hover:opacity-100 transition-all shadow-md ${
                   showOptions ? "opacity-100" : ""
                 }`}
               >
