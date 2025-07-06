@@ -2,7 +2,7 @@
 
 import { ImageUp, X } from "lucide-react";
 import { Button, buttonVariants } from "../ui/button";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { Task } from "@/types";
 import { User } from "next-auth";
@@ -37,10 +37,6 @@ export default function TaskForm({ setShowForm, user, task }: TaskFormProps) {
   const [loading, setLoading] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    console.log(task);
-  }, [task]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

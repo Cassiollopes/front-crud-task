@@ -101,7 +101,7 @@ export default function TaskItem({ task, user }: { task: Task; user: User }) {
               ? "Média"
               : "Alta"}
           </span>
-          <div className="relative group cursor-pointer">
+          <div className="relative group cursor-pointer xl:z-30">
             <div
               onClick={() => setShowOptions(!showOptions)}
               className="xl:pointer-events-none z-30 relative"
