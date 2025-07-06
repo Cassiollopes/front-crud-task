@@ -25,7 +25,7 @@ export default function Header({ user }: { user?: User }) {
               <img
                 src={user.image}
                 alt="User Avatar"
-                className="object-cover w-full h-full opacity-95"
+                className="object-cover w-full h-full"
               />
             ) : (
               <p className="text-3xl font-bold text-blue-300">
