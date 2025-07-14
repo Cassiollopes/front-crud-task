@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { User } from "next-auth";
 import { Task } from "@/types";
 import TaskForm from "./taskForm";
+import { signOut } from "next-auth/react";
 
 export default function TaskList({ user }: { user?: User }) {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -40,6 +41,12 @@ export default function TaskList({ user }: { user?: User }) {
         );
 
         if (!response.ok) {
+          const error = await response.json();
+          if (error.message === "Token inválido ou expirado") {
+            signOut();
+            router.push("/login");
+            return;
+          }
           throw new Error("Network response was not ok");
         }
 
